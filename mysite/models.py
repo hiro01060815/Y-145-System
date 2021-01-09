@@ -17,3 +17,9 @@ class D31Info(models.Model):
     table = models.IntegerField('テーブル優先順位',default=0)
     def __str__(self):
         return str(self.user.username)+"/"+str(self.month)
+
+class UserStatus(models.Model):
+    user = models.ForeignKey(User,verbose_name='ユーザ',related_name='user1',on_delete=models.CASCADE)
+    userstatus = models.IntegerField('モデルステータス', default=0)
+    def __str__(self):
+        return str(self.user.username)+"/"+str(self.userstatus)
