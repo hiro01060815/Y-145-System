@@ -76,6 +76,8 @@ def kiboukyuu_hyouji(request):
             table_under_data = table_data.filter(status = 2)
             table_under_data = table_under_data.order_by('table')
             table_display_dict = table_display(request,table_under_data)
+        else:
+            table_under_data = 0
     
     return d31_data, exisitence, table_under_data,month_plus1,table_display_dict
             
