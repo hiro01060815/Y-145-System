@@ -3,7 +3,7 @@ from django.db.models import *
 from django.views.generic import TemplateView
 from mysite.forms import D31Form,MonthForm,CheckForm,D30Form,D28Form
 from django.contrib.auth.decorators import login_required
-from mysite.models import D31Info
+from mysite.models import D31Info, UserStatus
 import datetime
 
 today = datetime.date.today()
@@ -181,6 +181,12 @@ def shihuto_submit(request):
                 #print(yasumi +"/" +month)
                 if D31Info.objects.filter(user_id = user.id).exists(): #最初のデータの有無
                     data = D31Info.objects.filter(user_id = user.id)
+                    userstatus = UserStatus.objects.filter(user_id = user.id)
+                    pkk=0
+                    for i in userstatus:
+                        pkk = i.id
+                    userstatus = UserStatus.objects.get(id=pkk)
+                    userstatus = userstatus.userstatus
                     if data.filter(month = month).exists(): #同じ月のデータが存在するか参照
                         #ある場合(上書き保存)
                         data = data.filter(month = month)
@@ -190,10 +196,11 @@ def shihuto_submit(request):
                         obj.yasumi = yasumi
                         obj.status = 1
                         obj.form = form
+                        obj.table = userstatus
                         obj.save()
                         obj = obj
                     else:#同じ月のデータなし
-                        D31Info(user = user, yasumi = yasumi,month = month,form = form,status = 1).save()         
+                        D31Info(user = user, yasumi = yasumi,month = month,form = form,status = 1, table = userstatus).save()         
                         data = D31Info.objects.filter(user_id = user.id)       
                         data = data.filter(status =1)
                         #print(data.values())
@@ -202,7 +209,7 @@ def shihuto_submit(request):
                         print(pk)
                         obj = D31Info.objects.get(id=pk)
                 else: #一つもデータなし無い場合(そのまま保存)
-                    D31Info(user = user, yasumi = yasumi,month = month,form = form,status = 1).save()         
+                    D31Info(user = user, yasumi = yasumi,month = month,form = form,status = 1, table = userstatus).save()         
                     data = D31Info.objects.filter(user_id = user.id)       
                     data = data.filter(status =1)
                     #print(data.values())
@@ -232,7 +239,7 @@ def shihuto_submit(request):
                     'exisitence':exisitence,'table_under_data':table_under_data,'month_plus1':month_plus1
                     ,'table_display_dict':table_display_dict} )
     
-def check(request,pk):
+def check(request,pk): #入力したフォーム内容を確認
     obj = D31Info.objects.get(id=pk)
     id = pk
     if(request.method == 'POST'):
