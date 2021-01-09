@@ -1,0 +1,151 @@
+/*------------------------------------all-*/
+body{
+    color: black;
+    font-size: 16py;
+    font-family: "Avenir Next";
+    margin: 0;
+    padding: 0;
+}
+.form-name{
+    font-size: 35pt;
+}
+p{
+    margin: 10px;
+}
+a{
+    color: black;
+}
+.table-all{
+    margin-left: auto;
+    margin-right: auto;
+}
+caption{
+    font-weight: bold;
+    font-size: 15px;
+    text-align: left;
+}
+
+.h1-title{
+    color: black;
+    font-size: 40pt;
+    padding-top:15px;
+    margin-left:220px;
+}
+
+.aside-right{
+    box-sizing: border-box;
+    top: 273px;
+    height: 100px;
+    width: 220px;
+    position: absolute;
+    background: #DDFFFF;
+    margin-left: auto;
+}
+.aside-right li{
+    list-style: none;
+    font-weight: 700;
+    margin-left: auto;
+    margin-right: auto;
+}
+.aside-right h2{
+    text-align: center;
+}
+
+#child1 {
+    flex-grow: 1;
+    
+}
+#child2 {
+    flex-grow: 1;
+}
+#parent {
+    display: flex;
+}
+
+/*--------------------------------------------base.html-*/
+.header-list li a{
+    color:white;
+    font-size: 20px;
+}
+.header-list li{
+    list-style:none;
+    float: right;
+    padding: 33px 20px;
+    color: #fff;
+}
+header{
+    background-color: #26d0c9;
+    color: #fff;
+    height: 70px;
+}
+
+.header-logo{
+    float: left;
+    font-size: 36px;
+    padding: 20px 40px;
+    color: #fff;
+    margin-top: -10px;
+    margin-left:50px;
+}
+.header-logo a{
+    color: #fff;
+}
+li.login-name{
+    color: white;
+    margin-top: 2px;
+}
+.copyright{
+    text-align:center;
+}
+/*
+.main{
+    box-sizing: border-box;
+    margin-left: 220px;
+    margin-right: 220px;
+    padding: 20px 40px;
+}
+*/
+.aside{
+    box-sizing: border-box;
+    top: 200px;
+    height: 100px;
+    width: 220px;
+    position: fixed;
+    background: #DDFFFF;
+    
+}
+.aside li{
+    list-style: none;
+    font-weight: 700;
+    margin-left: auto;
+    margin-right: auto;
+}
+.aside h2{
+    text-align: center;
+}
+
+
+
+
+/*-----------------------------------------------login.html-*/
+.common-form{
+    text-align:center;
+}
+
+/*------------------------------------------------logged_out.html-*/
+p.logged_out-p{
+    text-align:center;
+}
+
+
+
+/*------------------------------------------------------------index.html--*/
+.font{
+    font-size: 25pt;
+}
+
+.submit-main{
+    margin-left: 250px;
+    margin-right: 250px;   
+}
+

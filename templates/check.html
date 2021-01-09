@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{%block content %}
+
+<div class="submit-main">
+    <h2 class="form-name">
+        入力確認
+    </h2>
+    <h3>{{month}}月の希望休は</h3>
+    <h3>{{yasumi}}</h3>
+    <h3>でよろしいですか？</h3>
+
+    <form action="{% url 'mysite:check' pk %}" method="POST" novalidate>
+        <h3>{{ month_hyouji }}</h3>
+        {% csrf_token %}
+        {{ checkform.as_hidden }}
+        <button type="submit" name="check_button">登録確定</button>
+    </form>
+    <p>{{message}}</p>
+</div>
+{%endblock%}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{%block content %}
+
+<div class="submit-main">
+    <h2 class="form-name">
+        希望休登録
+    </h2>
+    <form  method="POST" novalidate>
+        {% csrf_token %}
+        {{ KIform.as_p }}
+        <button type="submit" name="kadai_button">送信</button>
+    </form>
+    <p>{{message}}</p>
+</div>

@@ -1,0 +1,40 @@
+{%  load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <title>{% if request.path != '/' %}{% block title %}{% endblock %}  {% endif %}S-m-System</title>
+</head>
+    <body>
+
+        <header>
+            <h1 class="header-logo"><a href="#">Y-154-System</a></h1>
+            <nav>
+                <ul>
+                    <div class="header-list">
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'logout' %}" class="logout">ログアウト</a></li>
+                            <li class="login-name"><a href="#">{{user}}</a>さんがログイン中</li>
+                        {% else %}
+                            <li><a href="{% url 'accounts:signup' %}" class="signup">新規登録</a></li>
+                            <li><a href="{% url 'login' %}" class="login">ログイン</a></li>
+                            <li class="login-name">ログアウト中</li>
+                        {% endif %}
+                        
+
+                    </div>
+                </ul>
+            </nav>
+        </header>        
+        <main class="main">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <p class="copyright"><small>Copyright &copy; All Right Reserved by Y-154-System</small></p>
+            <p></p>
+        </footer>
+    </body>
+</html>

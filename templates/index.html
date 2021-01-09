@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{%block content %}
+
+<div class="submit-main">
+    <h2 class="form-name">
+        希望休登録
+    </h2>
+    <h3>{{month_plus1}}月の希望休表</h3>
+
+    <table class="index" border="1">
+        <caption></caption>
+        <tr>
+            <th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+            <th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th>
+            <th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th><th>31</th>
+        </tr>
+        {% for data in table_display_dict %}
+            <tr>
+                <th>{{data.user}}</th>
+                {% for data1 in data.yasumi %}
+                <td>{{data1}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+
+        {% for data in table_under_data %}
+            <p>{{data.user}}/{{data.yasumi}}</p>
+            <p></p>
+        {% endfor %}
+    <h3>登録済み希望休</h3>
+    {% if exisitence == 1 %}
+        {% for data in d31_data %}
+            <p>{{data.month}}月の希望休 {{data.yasumi}}</p>
+        {% endfor %}
+    {% else %}
+        <p>登録データ無し</p>
+    {% endif %}
+
+    <h3>希望休を登録・更新する</h3>
+    <form  method="POST" novalidate>
+        {% csrf_token %}
+        {{ monthform.as_p }}
+        <button type="submit" name="month_button">進む</button>
+    </form>
+    <p>{{ message }}</p>   
+
+
+    <form  method="POST" novalidate>
+        <h3>{{ month_hyouji }}</h3>
+        {% csrf_token %}
+        {{ form.month.as_hidden }}
+        {{ form.Kiboukyuu }}
+        {%if a == 2%}
+        <button type="submit" name="yasumi_button">確認</button>
+        {% else %}
+
+        {% endif %}
+    </form>
+    <p>{{message}}</p>
+</div>
+{%endblock%}

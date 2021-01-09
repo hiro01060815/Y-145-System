@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<h1 class="h1-title">ログアウト</h1>
+<p class="logged_out-p">ログアウトしました。システムを利用する場合は再度ログインをお願いします。</p>
+<p class="logged_out-p"><a href="{% url 'login' %}">ログイン</a></p>
+{% endblock %}
