@@ -9,10 +9,9 @@ import datetime
 today = datetime.date.today()
 this_month = today.month
 month_plus1 = this_month+1
-
-def table_display(request,table_under_data):
+def table_display(request,table_under_data1):
     table_display_dict=[]
-    for data in table_under_data:
+    for data in table_under_data1:
         """
         print(data.yasumi)
         print(data.month)
@@ -73,15 +72,19 @@ def kiboukyuu_hyouji(request):
     if D31Info.objects.filter(month = month_plus1).exists():
         table_data = D31Info.objects.filter(month = month_plus1)
         if table_data.filter(status = 2).exists():
-            table_under_data = table_data.filter(status = 2)
-            table_under_data = table_under_data.order_by('table')
-            table_display_dict = table_display(request,table_under_data)
+            table_under_data2 = table_data.filter(status = 2)
+            table_under_data2 = table_under_data2.order_by('table')
+            table_display_dict = table_display(request,table_under_data2)
         else:
-            table_under_data = 0
-    
-    return d31_data, exisitence, table_under_data,month_plus1,table_display_dict
+            table_under_data2 = []
+            table_display_dict = {}
+    else:
+        table_under_data2 = []
+        table_display_dict = {}
+
+    return d31_data, exisitence, table_under_data2,month_plus1,table_display_dict
             
-def form_display(request,month,monthform,d31_data,exisitence,table_under_data,month_plus1,table_display_dict):
+def form_display(request,month,monthform,d31_data,exisitence,table_under_data3,month_plus1,table_display_dict):
     a=1
     #print("form")
     user = request.user
@@ -122,7 +125,7 @@ def form_display(request,month,monthform,d31_data,exisitence,table_under_data,mo
             'month_hyouji':month_hyouji,
             'd31_data':d31_data, 
             'exisitence':exisitence,
-            'table_under_data':table_under_data,
+            'table_under_data':table_under_data3,
             'month_plus1':month_plus1,
             'table_display_dict':table_display_dict
             
@@ -146,7 +149,7 @@ def form_display(request,month,monthform,d31_data,exisitence,table_under_data,mo
                 'month_hyouji':month_hyouji,
                 'd31_data':d31_data, 
                 'exisitence':exisitence,
-                'table_under_data':table_under_data,
+                'table_under_data':table_under_data3,
                 'month_plus1':month_plus1,
                 'table_display_dict':table_display_dict
             }
@@ -156,7 +159,7 @@ def form_display(request,month,monthform,d31_data,exisitence,table_under_data,mo
 def shihuto_submit(request):
     user = request.user
 
-    d31_data, exisitence, table_under_data,month_plus1,table_display_dict = kiboukyuu_hyouji(request)
+    d31_data, exisitence, table_under_data4,month_plus1,table_display_dict = kiboukyuu_hyouji(request)
 
     a = 1
     if request.method == 'POST':
@@ -167,7 +170,7 @@ def shihuto_submit(request):
                 month = request.POST['month']
                 #print(month)
                 month = int(month)
-                params = form_display(request,month,monthform,d31_data,exisitence,table_under_data,month_plus1,table_display_dict)
+                params = form_display(request,month,monthform,d31_data,exisitence,table_under_data4,month_plus1,table_display_dict)
                 return render(request,'index.html',params)
 
         if 'yasumi_button' in request.POST:
@@ -180,15 +183,16 @@ def shihuto_submit(request):
                 for i in kiboukyuu:
                     yasumi += str(i)+","
                 yasumi = yasumi[:-1]
+                userstatus = UserStatus.objects.filter(user_id = user.id)
+                pkk=0
+                for i in userstatus:
+                    pkk = i.id
+                userstatus = UserStatus.objects.get(id=pkk)
+                userstatus = userstatus.userstatus
                 #print(yasumi +"/" +month)
                 if D31Info.objects.filter(user_id = user.id).exists(): #最初のデータの有無
                     data = D31Info.objects.filter(user_id = user.id)
-                    userstatus = UserStatus.objects.filter(user_id = user.id)
-                    pkk=0
-                    for i in userstatus:
-                        pkk = i.id
-                    userstatus = UserStatus.objects.get(id=pkk)
-                    userstatus = userstatus.userstatus
+                    
                     if data.filter(month = month).exists(): #同じ月のデータが存在するか参照
                         #ある場合(上書き保存)
                         data = data.filter(month = month)
@@ -226,7 +230,7 @@ def shihuto_submit(request):
                     'checkform':CheckForm(instance=obj),
                     'month':month,
                     'yasumi':yasumi,
-                    'table_under_data':table_under_data,
+                    'table_under_data':table_under_data4,
                     'month_plus1':month_plus1,
                     'table_display_dict':table_display_dict
 
@@ -238,7 +242,7 @@ def shihuto_submit(request):
 
     return render(request, 'index.html',{'a':a,'monthform': MonthForm(),
                     'd31_data':d31_data, 
-                    'exisitence':exisitence,'table_under_data':table_under_data,'month_plus1':month_plus1
+                    'exisitence':exisitence,'table_under_data':table_under_data4,'month_plus1':month_plus1
                     ,'table_display_dict':table_display_dict} )
     
 def check(request,pk): #入力したフォーム内容を確認
