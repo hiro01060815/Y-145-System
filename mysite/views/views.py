@@ -33,27 +33,30 @@ def table_display(request,table_under_data1):
             print("**********************")
             """
             for j in range(z,date+1):
+                """
                 print("\niの値は"+str(i))
                 print("zの値は"+str(z))
                 print("jの値は"+str(j)+"\n")
+                """
                 if j == int(i):
                     yasumi_list.append("〇")
-                    print(str(j)+"日は〇")
+
+                    #print(str(j)+"日は〇")
                 elif j < int(i):
                     yasumi_list.append(" ")
-                    print(str(j)+"日は#")
+                    #print(str(j)+"日は#")
                 else:
                     z = j
-                    print("zの値更新")
+                    #print("zの値更新")
                     break
                 zz=j
             
                 #print(j)
-        print("zzの値は"+str(zz))       
+        #print("zzの値は"+str(zz))       
             #print("->"+str(z))
         for i in range(zz,date):
             yasumi_list.append(" ")
-            print("空白追加")
+            #print("空白追加")
         #default_dict = dict(month = month,Kiboukyuu = kiboukyuu )
         if date < 31:
             for i in range(date+1,31+1):
