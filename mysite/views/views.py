@@ -8,15 +8,17 @@ import datetime
 
 today = datetime.date.today()
 this_month = today.month
-month_plus1 = this_month+1
+#month_plus1 = this_month+1
+month_plus1 = 4
 def table_display(request,table_under_data1):
     table_display_dict=[]
     for data in table_under_data1:
-        """
+        
         print(data.yasumi)
         print(data.month)
         print(data.user.username)
-        """
+
+        
         if (data.month==2):#28日
             date=28
         elif (data.month==4) or (data.month==6) or (data.month==9) or (data.month==11):#30日
@@ -27,18 +29,32 @@ def table_display(request,table_under_data1):
         yasumi_list=[]
         z=1
         for i in yasumi:
-            
-            for j in range(z,date):
+            """
+            print("休日は"+str(i))
+            print("**********************")
+            """
+            for j in range(z,date+1):
+                print("\niの値は"+str(i))
+                print("zの値は"+str(z))
+                print("jの値は"+str(j)+"\n")
                 if j == int(i):
                     yasumi_list.append("〇")
+                    print(str(j)+"日は〇")
                 elif j < int(i):
                     yasumi_list.append(" ")
+                    print(str(j)+"日は#")
                 else:
                     z = j
+                    print("zの値更新")
                     break
+                zz=j
+            
+                #print(j)
+        print("zzの値は"+str(zz))       
             #print("->"+str(z))
-        for i in range(z,date+1):
+        for i in range(zz,date):
             yasumi_list.append(" ")
+            print("空白追加")
         #default_dict = dict(month = month,Kiboukyuu = kiboukyuu )
         if date < 31:
             for i in range(date+1,31+1):
